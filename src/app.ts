@@ -1,39 +1,38 @@
+import 'reflect-metadata';
 import { fastify } from "fastify";
-import type {
-  FastifyInstance,
-  FastifyListenOptions,
-} from "fastify";
-import { fastifyPostgres } from "@fastify/postgres";
+import type { FastifyInstance, FastifyListenOptions } from "fastify";
+
+import { registerRoutes } from "./routes";
+import { registerPlugins } from "./plugins";
+import { configureContainer } from "./container";
+import { addHooks } from "./hooks";
 
 const fastifyInstance: FastifyInstance = fastify({ logger: true });
 
-/**
- * Routes
- */
-const routes = require("./routes");
 
 /**
  * Extract environment variables
  */
-const PORT: number = Number(process.env.PORT) || 3000;
-const HOSTNAME: string = process.env.HOST || "0.0.0.0";
-const POSTGRES_USER: string = process.env.POSTGRES_USER || "admin";
-const POSTGRES_PASSWORD: string = process.env.POSTGRES_PASSWORD || "admin";
-const POSTGRES_SERVICE: string = process.env.POSTGRES_SERVICE || "";
-const POSTGRES_PORT: number = Number(process.env.POSTGRES_DB);
-const POSTGRES_DB: string = process.env.POSTGRES_DB || "taskmanager";
+const PORT: number = Number(process.env.API_PORT) || 3000;
+const HOSTNAME: string = process.env.API_HOST || "0.0.0.0";
+
+// Initialize the IoC container
+const container = configureContainer();
 
 /**
- * Connect to DB
+ * add hooks
  */
-fastifyInstance.register(fastifyPostgres, {
-  connectionString: `postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_SERVICE}:${POSTGRES_PORT}/${POSTGRES_DB}`,
-});
+addHooks(fastifyInstance, container);
 
 /**
  * Register routes
  */
-fastifyInstance.register(routes);
+registerRoutes(fastifyInstance, container);
+
+/**
+ * Register plugins
+ */
+registerPlugins(fastifyInstance);
 
 /**
  * Start fastify server listener

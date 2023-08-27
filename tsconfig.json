@@ -1,14 +1,21 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ES6",
     "module": "commonjs",
     "lib": ["es6"],
+    "types": ["node"],
     "allowJs": true,
     "outDir": "dist",
     "rootDir": ".",
     "strict": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "esModuleInterop": true,
-    "resolveJsonModule": true
-  }
+    "resolveJsonModule": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "strictPropertyInitialization": false
+  },
+  "include": ["src/**/*"],
+  "files":["src/types/fastify.d.ts"]
+
 }

@@ -1,7 +1,9 @@
 import type { FastifyInstance } from "fastify";
+import {v1ApiRoutes} from './v1';
+import { IAppContainer } from "../interfaces/container.interface";
 
-const apiRoutes = async (fastify: FastifyInstance) => {
-  fastify.register(require("./v1"), { prefix: "/api/v1" });
+const registerRoutes = async (fastify: FastifyInstance, container: IAppContainer) => {
+  fastify.register(v1ApiRoutes, { prefix: "/api/v1", container });
   fastify.get("/", async () => {
     return {
       message: "Fastify API is on fire",
@@ -9,4 +11,4 @@ const apiRoutes = async (fastify: FastifyInstance) => {
   });
 };
 
-module.exports = apiRoutes;
+export { registerRoutes };
