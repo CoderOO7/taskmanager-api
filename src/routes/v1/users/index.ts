@@ -1,11 +1,7 @@
-import { ContainerOptions } from "awilix";
 import type { FastifyInstance } from "fastify";
-// import { UserController } from "../../../controllers/user.controller";
 import { IAppContainer } from "../../../interfaces/container.interface";
-import { ServicesNames } from "../../../enums";
-import { UserController } from "../../../controllers/user.controller";
+import { UserController } from "../../../controllers";
 
-// const { validateToken } = require("../utils/jwt");
 
 const usersRoutes = async (fastify: FastifyInstance, container: IAppContainer) => {
   const userController = new UserController(container);

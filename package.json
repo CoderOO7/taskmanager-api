@@ -26,13 +26,13 @@
     "@fastify/jwt": "^7.2.0",
     "@fastify/postgres": "^5.2.0",
     "awilix": "^8.0.1",
+    "bcrypt": "^5.1.1",
     "class-validator": "^0.14.0",
     "dotenv": "^16.3.1",
     "fastify": "^4.21.0",
-    "inversify": "^6.0.1",
+    "jsonwebtoken": "^9.0.1",
     "pg": "^8.11.3",
     "reflect-metadata": "^0.1.13",
-    "remove": "^0.1.5",
     "typeorm": "^0.3.17"
   },
   "devDependencies": {
