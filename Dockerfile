@@ -4,9 +4,6 @@ FROM node:16
 ARG NODE_ENV=development
 ENV NODE_ENV=${NODE_ENV}
 
-# Use latest version of npm
-RUN npm install npm@latest -g
-
 # Set the working directory to /app
 WORKDIR /app
 
@@ -14,7 +11,7 @@ WORKDIR /app
 COPY package*.json /app/
 
 # install dependencies
-RUN npm ci --no-optional && npm cache clean --force
+RUN npm ci --omit=optional && npm cache clean --force
 
 # Copy the current directory contents into the container at /app
 COPY . /app/

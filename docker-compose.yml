@@ -17,7 +17,7 @@ services:
     hostname: postgres
     image: 'postgres:13'
     ports:
-      - '5432:5432'
+      - '${POSTGRES_PORT}:${POSTGRES_PORT}'
     restart: always
     env_file: .env
     volumes:
