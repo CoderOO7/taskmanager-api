@@ -1,6 +1,4 @@
-import type {
-  FastifyInstance,
-} from "fastify";
+import type { FastifyInstance } from "fastify";
 import { usersRoutes } from "./users/index";
 import { IFastifyRegisterOptions } from "../../interfaces/fastify.interface";
 import { authRoutes } from "./auth";

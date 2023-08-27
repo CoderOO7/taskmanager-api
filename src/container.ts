@@ -1,4 +1,4 @@
-import { createContainer, asClass, asValue } from "awilix";
+import { createContainer, asClass } from "awilix";
 import { AuthService } from "./services/auth.service";
 import { UserController } from "./controllers/user.controller";
 import { IAppContainer } from "./interfaces/container.interface";
@@ -9,7 +9,6 @@ import { AuthController } from "./controllers/auth.controller";
 
 const configureContainer = () => {
   const container : IAppContainer = createContainer();
-  // const userRepository:any = AppDataSource.getRepository();
   
   // register services
   container.register({

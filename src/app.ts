@@ -20,6 +20,11 @@ const HOSTNAME: string = process.env.API_HOST || "0.0.0.0";
 const container = configureContainer();
 
 /**
+ * Register plugins
+ */
+registerPlugins(fastifyInstance);
+
+/**
  * add hooks
  */
 addHooks(fastifyInstance, container);
@@ -28,11 +33,6 @@ addHooks(fastifyInstance, container);
  * Register routes
  */
 registerRoutes(fastifyInstance, container);
-
-/**
- * Register plugins
- */
-registerPlugins(fastifyInstance);
 
 /**
  * Start fastify server listener

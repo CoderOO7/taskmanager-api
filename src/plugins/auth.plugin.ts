@@ -1,28 +1,37 @@
-import type { FastifyInstance, FastifyReply } from "fastify";
+import type {
+  FastifyPluginCallback,
+  FastifyReply,
+  FastifyRequest,
+} from "fastify";
 import { fromEnv } from "../utils";
 import { fastifyPlugin } from "fastify-plugin";
 
-const authPlugin = fastifyPlugin(async (fastify: FastifyInstance) => {
+const authPluginCB: FastifyPluginCallback = async function (fastify) {
   fastify.register(require("@fastify/jwt"), {
     secret: fromEnv("JWT_SECRET"),
     messages: {
       badRequestErrorMessage: "Format is Authorization: Bearer [token]",
       noAuthorizationInHeaderMessage: "Autorization header is missing!",
       authorizationTokenExpiredMessage: "Authorization token expired",
-      authorizationTokenInvalid: (err: any) => {
+      authorizationTokenInvalid: (err) => {
         return `Authorization token is invalid: ${err.message}`;
       },
     },
   });
 
-  fastify.decorate("authenticate", async (request: any , reply: FastifyReply) => {
-    try {
-      await request.jwtVerify();
-    } catch (err: any) {
-      reply.code(401).send({ error: 'Unauthorized' });
-      reply.send(err);
+  fastify.decorate(
+    "authenticate",
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      try {
+        await request.jwtVerify();
+      } catch (err: any) {
+        reply.send(err);
+      }
     }
-  });
-});
+  );
 
+  return;
+};
+
+const authPlugin = fastifyPlugin(authPluginCB);
 export { authPlugin };
