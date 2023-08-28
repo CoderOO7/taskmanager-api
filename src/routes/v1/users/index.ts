@@ -1,6 +1,14 @@
 import type { FastifyInstance } from "fastify";
 import { IAppContainer } from "../../../interfaces/container.interface";
 import { UserController } from "../../../controllers";
+import {
+  createSchema,
+  deleteSchema,
+  getAllSchema,
+  getSchema,
+  updateSchema,
+} from "./schema";
+import { validatorCompiler } from "../../../validators/ajv";
 
 const usersRoutes = async (
   fastify: FastifyInstance,
@@ -10,38 +18,62 @@ const usersRoutes = async (
 
   fastify.get(
     "/users",
-    { preValidation: [fastify.authenticate] },
+    {
+      schema: getAllSchema,
+      validatorCompiler,
+      preValidation: [fastify.authenticate],
+    },
     userController.getAllUsers
   );
 
   fastify.get(
     "/users/me",
-    { preValidation: [fastify.authenticate] },
+    {
+      schema: getSchema,
+      validatorCompiler,
+      preValidation: [fastify.authenticate],
+    },
     userController.getLoggedInUser
-  );
-
-  fastify.post(
-    "/users",
-    { preValidation: [fastify.authenticate] },
-    userController.createUser
   );
 
   fastify.get(
     "/users/:id",
-    { preValidation: [fastify.authenticate] },
+    {
+      schema: getSchema,
+      validatorCompiler,
+      preValidation: [fastify.authenticate],
+    },
     userController.getUser
   );
 
-  fastify.delete(
-    "/users/:id",
-    { preValidation: [fastify.authenticate] },
-    userController.deleteUser
+  fastify.post(
+    "/users",
+    {
+      schema: createSchema,
+      validatorCompiler,
+      preValidation: [fastify.authenticate],
+    },
+    userController.createUser
   );
 
   fastify.patch(
     "/users/:id",
-    { preValidation: [fastify.authenticate] },
+    {
+      schema: updateSchema,
+      validatorCompiler,
+      preValidation: [fastify.authenticate],
+    },
     userController.updateUser
+  );
+
+  fastify.delete(
+    "/users/:id",
+    {
+      schema: deleteSchema,
+      validatorCompiler,
+      preValidation: [fastify.authenticate],
+    },
+    userController.deleteUser
   );
 };
 

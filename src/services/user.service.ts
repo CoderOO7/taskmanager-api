@@ -1,4 +1,6 @@
+import createHttpError from "http-errors";
 import { UserRepository } from "../repositories/user.repository";
+import { USER_NOT_FOUND } from "../constants/errors";
 
 export class UserService {
   private userRepository: UserRepository;
@@ -14,26 +16,33 @@ export class UserService {
 
   updateUser = async (id: string, data: any) => {
     const user = await this.userRepository.update({ id }, data);
-    if (user.affected) {
-      return await this.userRepository.findOneBy({ id });
+    if (!user.affected) {
+      throw createHttpError.NotFound(USER_NOT_FOUND);
     }
-    return user;
+    return await this.userRepository.findOneBy({ id });
   };
 
   deleteUser = async (id: string) => {
     const user = await this.userRepository.delete({ id });
     if (!user.affected) {
-      throw new Error("User not found");
+      throw createHttpError.NotFound(USER_NOT_FOUND);
     }
     return user;
   };
 
   getUser = async (id: string) => {
     const user = await this.userRepository.findOneBy({ id });
+    if (!user) {
+      throw createHttpError.NotFound(USER_NOT_FOUND);
+    }
     return user;
   };
 
   getAllUsers = async () => {
     return await this.userRepository.find();
+  };
+
+  getLoggedInUser = async (id: string) => {
+    return await this.getUser(id);
   };
 }

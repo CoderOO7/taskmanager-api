@@ -12,7 +12,7 @@ export class UserController {
   createUser = async (req: FastifyRequest, reply: FastifyReply) => {
     const { name, email, password }: any = req.body;
     const newUser = await this.userService.createUser(name, email, password);
-    return reply.code(200).send(newUser);
+    return reply.code(201).send(newUser);
   };
 
   updateUser = async (req: FastifyRequest, reply: FastifyReply) => {
@@ -31,7 +31,7 @@ export class UserController {
   getUser = async (req: FastifyRequest, reply: FastifyReply) => {
     const { id }: any = req.params;
     const newUser = await this.userService.getUser(id);
-    return reply.code(20).send(newUser);
+    return reply.code(200).send(newUser);
   };
 
   getAllUsers = async (req: FastifyRequest, reply: FastifyReply) => {
@@ -39,10 +39,9 @@ export class UserController {
     return reply.code(200).send(users);
   };
 
-  // Todo
   getLoggedInUser = (req: FastifyRequest, reply: FastifyReply) => {
-    const { name, email, password }: any = req.body;
-    const newUser = this.userService.createUser(name, email, password);
+    const { user }: any = req;
+    const newUser = this.userService.getLoggedInUser(user.id);
     return newUser;
   };
 }
