@@ -41,7 +41,7 @@ export class UserController {
 
   getLoggedInUser = (req: FastifyRequest, reply: FastifyReply) => {
     const { user }: any = req;
-    const newUser = this.userService.getLoggedInUser(user.id);
+    const newUser = this.userService.getLoggedInUser(user.userId);
     return newUser;
   };
 }

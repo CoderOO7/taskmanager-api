@@ -8,7 +8,7 @@ const dbPlugin = fastifyPlugin(async (fastify: FastifyInstance) => {
     const dbConnection:any = await AppDataSource.initialize();
     fastify.log.info(`Database listening at ${dbConnection.options.host}:${dbConnection.options.port}`)
   } catch (err) {
-    fastify.log.error("dbConnection Error ", err);
+    fastify.log.error(`dbConnection Error ${err}`);
   }
 });
 

@@ -1,3 +1,5 @@
+import { TASK_STATUS } from "../../../enums";
+
 const getOrDeleteParamsSchema = {
   type: "object",
   properties: {
@@ -13,21 +15,13 @@ const getOrDeleteParamsSchema = {
 const bodyCreateSchema = {
   type: "object",
   properties: {
-    name: { type: "string" },
-    email: {
-      type: "string",
-      format: "email",
-    },
-    password: { type: "string" },
+    title: { type: "string", minLength: 1 },
+    description: { type: "string" },
   },
-  required: ["name", "email"],
+  required: ["title"],
   errorMessage: {
     required: {
-      name: "name is required.",
-      email: "email is required.",
-    },
-    properties: {
-      email: "should be match a email.",
+      title: "title is required.",
     },
   },
 };
@@ -35,26 +29,32 @@ const bodyCreateSchema = {
 const bodyUpdateSchema = {
   type: "object",
   properties: {
-    name: { type: "string" },
-    email: {
-      type: "string",
-      format: "email",
-    },
-    password: { type: "string" },
+    title: { type: "string", minLength: 1 },
+    description: { type: "string" },
+    status: { type: "string", enum: Object.values(TASK_STATUS) },
   },
   errorMessage: {
     properties: {
-      email: "should be match a email.",
+      status: `status can be any of following values ${Object.values(
+        TASK_STATUS
+      ).toString()}`,
     },
   },
 };
 
-const responseCreateOrUpdateSchema = {
+const responseCreateSchema = {
   id: { type: "string" },
-  name: { type: "string" },
-  email: { type: "string" },
-  updated_at: { type: "string" },
+  title: { type: "string" },
+  description: { type: "string" },
+  status: { type: "string" },
   created_at: { type: "string" },
+  updated_at: { type: "string" },
+};
+
+const responseGetOrUpdateSchema = {
+  ...responseCreateSchema,
+  created_by: { type: "string" },
+  updated_by: { type: "string" },
 };
 
 const createSchema = {
@@ -62,7 +62,7 @@ const createSchema = {
   response: {
     201: {
       type: "object",
-      properties: responseCreateOrUpdateSchema,
+      properties: responseCreateSchema,
     },
   },
 };
@@ -72,7 +72,7 @@ const updateSchema = {
   response: {
     200: {
       type: "object",
-      properties: responseCreateOrUpdateSchema,
+      properties: responseGetOrUpdateSchema,
     },
   },
 };
@@ -81,7 +81,7 @@ const getSchema = {
   response: {
     200: {
       type: "object",
-      properties: responseCreateOrUpdateSchema,
+      properties: responseGetOrUpdateSchema,
     },
   },
   params: getOrDeleteParamsSchema,
@@ -91,7 +91,10 @@ const getAllSchema = {
   response: {
     200: {
       type: "array",
-      properties: responseCreateOrUpdateSchema,
+      items: {
+        type: "object",
+        properties: responseGetOrUpdateSchema,
+      },
     },
   },
 };
