@@ -20,7 +20,7 @@ const bodyCreateSchema = {
       type: "string",
       format: "email",
     },
-    password: { type: "string" },
+    password: { type: "string", minLength: 8 },
   },
   required: ["name", "email"],
   errorMessage: {

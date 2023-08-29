@@ -1,6 +1,6 @@
 import createHttpError from "http-errors";
 import { UserRepository } from "../repositories/user.repository";
-import { USER_NOT_FOUND } from "../constants/errors";
+import { USER_NOT_FOUND, USER_WITH_EMAIL_EXIST } from "../constants/errors";
 
 export class UserService {
   private userRepository: UserRepository;
@@ -10,6 +10,10 @@ export class UserService {
   }
 
   createUser = async (name: string, email: string, password: string) => {
+    const exist = await this.userRepository.findOneBy({email});
+    if(exist){
+      throw createHttpError.Conflict(USER_WITH_EMAIL_EXIST);
+    }
     const user = await this.userRepository.save({ name, email, password });
     return user;
   };

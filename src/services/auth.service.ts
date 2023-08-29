@@ -3,7 +3,7 @@ import { UserRepository } from "../repositories/user.repository";
 import { SALT } from "../constants";
 import { AuthRepository } from "../repositories";
 import createHttpError from "http-errors";
-import { INVALID_PASSWORD, USER_NOT_FOUND } from "../constants/errors";
+import { INVALID_PASSWORD, USER_NOT_FOUND, USER_WITH_EMAIL_EXIST } from "../constants/errors";
 
 export class AuthService {
   private userRepository: UserRepository;
@@ -16,6 +16,11 @@ export class AuthService {
 
   registerUser = async (data, jwt) => {
     const { password, name, email } = data;
+
+    const exist = await this.userRepository.findOneBy({email});
+    if(exist){
+      throw createHttpError.Conflict(USER_WITH_EMAIL_EXIST);
+    }
 
     const hashedPassword = await bcrypt.hash(password, SALT);
 

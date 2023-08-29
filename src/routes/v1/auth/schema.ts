@@ -8,7 +8,7 @@ const bodyRegisterSchema = {
       type: "string",
       format: "email",
     },
-    password: { type: "string" },
+    password: { type: "string", minLength: 8 },
   },
   required: ["name", "email", "password"],
   errorMessage: {
