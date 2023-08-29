@@ -28,9 +28,15 @@ Before you begin, make sure you have the following installed:
    ```
 2. Create .env file and copy content of .sample.env
     ```bash
-    $ cp .sample.env .env
+    $ cp .env.sample .env
     ```
-3. Now spin the server by using below command
+
+3. Build the docker image
+    ```bash
+    $ docker compose build
+    ```
+
+4. Now spin the server by using below command
     ```bash
     $ docker compose up
     ```
