@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "rimraf ./dist && tsc",
-    "start:production": "npm run build && node ./dist/index.js",
+    "start:production": "npm run build && node ./index.ts",
     "start:development": "ts-node-dev --respawn ./index.ts",
     "migration:run": "ts-node ./node_modules/typeorm/cli migration:run -d ./src/config/typeorm/data-source.ts",
     "migration:generate": "npm run typeorm migration:generate",

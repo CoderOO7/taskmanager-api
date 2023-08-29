@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const app =
   process.env.NODE_ENV === "production"
-    ? require("./dist/app")
+    ? require("./dist/src/app")
     : require("./src/app");
 
 /**
