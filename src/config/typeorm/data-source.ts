@@ -15,6 +15,7 @@ export const AppDataSourceConfig : DataSourceOptions = {
   username: POSTGRES_USER,
   password: POSTGRES_PASSWORD,
   port: POSTGRES_PORT,
+  ssl: true,
   logging: true,
   synchronize: true,
   entities: [join(__dirname, "../../entities/**/*.ts")],

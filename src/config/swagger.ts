@@ -20,17 +20,19 @@ const swaggerConfig = {
       { name: ApiTags.task, description: "Task related end-points" },
       { name: ApiTags.default, description: "Default end-points" },
     ],
-    security: [{bearerAuth: []}],
+    security: [{ bearerAuth: [] }],
     securityDefinitions: {
       bearerAuth: {
         type: "apiKey",
         name: "Authorization",
         in: "header",
+        description: `Copy the authorization token from Auth api. And add Bearer prefix in below format:
+          Bearer \${token}
+        `,
       },
     },
   },
 };
-
 
 const swaggerUIConfig = {
   routePrefix: "/",
