@@ -9,7 +9,6 @@ const authRoutes = async (
   container: IAppContainer
 ) => {
   const userController = new AuthController(container, fastify.jwt);
-
   fastify.post(
     "/signup",
     { schema: registerSchema, validatorCompiler },
@@ -20,7 +19,7 @@ const authRoutes = async (
     "/login",
     { schema: loginSchema, validatorCompiler },
     userController.loginUser
-  );
+  );  
 };
 
 export { authRoutes };

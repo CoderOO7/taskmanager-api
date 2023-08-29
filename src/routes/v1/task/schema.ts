@@ -1,4 +1,4 @@
-import { TASK_STATUS } from "../../../enums";
+import { ApiTags, TASK_STATUS } from "../../../enums";
 
 const getOrDeleteParamsSchema = {
   type: "object",
@@ -58,6 +58,8 @@ const responseGetOrUpdateSchema = {
 };
 
 const createSchema = {
+  tags: [ApiTags.task],
+  descriptions: "Create a new task",
   body: bodyCreateSchema,
   response: {
     201: {
@@ -68,6 +70,8 @@ const createSchema = {
 };
 
 const updateSchema = {
+  tags: [ApiTags.task],
+  descriptions: "Update the existing task by id",
   body: bodyUpdateSchema,
   response: {
     200: {
@@ -78,6 +82,8 @@ const updateSchema = {
 };
 
 const getSchema = {
+  tags: [ApiTags.task],
+  descriptions: "Get task by id",
   response: {
     200: {
       type: "object",
@@ -88,6 +94,8 @@ const getSchema = {
 };
 
 const getAllSchema = {
+  tags: [ApiTags.task],
+  descriptions: "Get all tasks",
   response: {
     200: {
       type: "array",
@@ -100,6 +108,8 @@ const getAllSchema = {
 };
 
 const deleteSchema = {
+  tags: [ApiTags.task],
+  descriptions: "Delete the existing task by id",
   params: getOrDeleteParamsSchema,
 };
 

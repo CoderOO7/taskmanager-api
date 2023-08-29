@@ -4,11 +4,6 @@ import { IAppContainer } from "../interfaces/container.interface";
 
 const registerRoutes = async (fastify: FastifyInstance, container: IAppContainer) => {
   fastify.register(v1ApiRoutes, { prefix: "/api/v1", container });
-  fastify.get("/", async () => {
-    return {
-      message: "Fastify API is on fire",
-    };
-  });
 };
 
 export { registerRoutes };

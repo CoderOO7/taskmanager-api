@@ -10,5 +10,6 @@ declare module "fastify" {
   interface FastifyInstance {
     authenticate(request, reply): any;
     jwt: JWT;
+    swagger:any;
   }
 }

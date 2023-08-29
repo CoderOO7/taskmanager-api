@@ -1,3 +1,5 @@
+import { ApiTags } from "../../../enums";
+
 const bodyRegisterSchema = {
   type: "object",
   properties: {
@@ -54,6 +56,7 @@ const responseLoginSchema = {
 };
 
 const registerSchema = {
+  tags: [ApiTags.auth],
   body: bodyRegisterSchema,
   response: {
     201: {
@@ -64,6 +67,7 @@ const registerSchema = {
 };
 
 const loginSchema = {
+  tags: [ApiTags.auth],
   body: bodyLoginSchema,
   response: {
     200: {

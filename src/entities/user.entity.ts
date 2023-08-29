@@ -1,4 +1,3 @@
-import { IsNotEmpty } from "class-validator";
 import {
   Column,
   CreateDateColumn,
@@ -12,11 +11,9 @@ export class UserEntity {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @IsNotEmpty()
   @Column()
   name: string;
 
-  @IsNotEmpty()
   @Column({ unique: true })
   email: string;
 

@@ -51,7 +51,7 @@ const usersRoutes = async (
     {
       schema: createSchema,
       validatorCompiler,
-      preValidation: [fastify.authenticate],
+      preHandler: fastify.authenticate,
     },
     userController.createUser
   );

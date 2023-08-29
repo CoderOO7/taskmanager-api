@@ -1,3 +1,5 @@
+import { ApiTags } from "../../../enums";
+
 const getOrDeleteParamsSchema = {
   type: "object",
   properties: {
@@ -58,6 +60,8 @@ const responseCreateOrUpdateSchema = {
 };
 
 const createSchema = {
+  tags: [ApiTags.user],
+  description: "Create a new user",
   body: bodyCreateSchema,
   response: {
     201: {
@@ -68,6 +72,8 @@ const createSchema = {
 };
 
 const updateSchema = {
+  tags: [ApiTags.user],
+  description: "Update user by id",
   body: bodyUpdateSchema,
   response: {
     200: {
@@ -78,6 +84,8 @@ const updateSchema = {
 };
 
 const getSchema = {
+  tags: [ApiTags.user],
+  description: "Get user by id",
   response: {
     200: {
       type: "object",
@@ -88,6 +96,8 @@ const getSchema = {
 };
 
 const getAllSchema = {
+  tags: [ApiTags.user],
+  description: "Get all users",
   response: {
     200: {
       type: "array",
@@ -100,6 +110,8 @@ const getAllSchema = {
 };
 
 const deleteSchema = {
+  tags: [ApiTags.user],
+  description: "Delete user by id",
   params: getOrDeleteParamsSchema,
 };
 
