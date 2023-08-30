@@ -26,7 +26,7 @@ Before you begin, make sure you have the following installed:
    $ git clone https://github.com/coderoo7/taskmanager-api.git
    $ cd taskmanager-api
    ```
-2. Create .env file and copy content of .sample.env
+2. Create .env file and copy content of .env.sample
     ```bash
     $ cp .env.sample .env
     ```
