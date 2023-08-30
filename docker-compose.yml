@@ -9,9 +9,9 @@ services:
     ports:
       - '${API_PORT}:${API_PORT}'
     env_file: .env
-    network_mode: host
-    depends_on: 
-      - postgres
+    networks:
+      - app-network
+    command: ./wait-for-it.sh -t 0 postgres:5432 -- npm run start:${NODE_ENV}
 
   postgres:
     container_name: postgres
@@ -21,8 +21,11 @@ services:
       - '${POSTGRES_PORT}:${POSTGRES_PORT}'
     restart: always
     env_file: .env
+    networks:
+      - app-network
     volumes:
       - postgresql_data:/var/lib/postgres/data
+    
 
 volumes:
   postgresql_data:
