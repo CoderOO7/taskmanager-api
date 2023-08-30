@@ -8,16 +8,18 @@ ENV NODE_ENV=${NODE_ENV}
 WORKDIR /app
 
 # copy package.json into the container at /app
-COPY package*.json /app/
+COPY package*.json scripts/wait-for-it.sh /app/
+
+# make wait-for-it script executable
+RUN chmod +x ./wait-for-it.sh
 
 # install dependencies
 RUN npm ci --omit=optional && npm cache clean --force
 
 # Copy the current directory contents into the container at /app
-COPY . /app/
+COPY  . /app/
 
 # Make port 3000 available to the world outside this container
 EXPOSE 3000
 
-# Run the app when the container launches
-CMD npm run start:${NODE_ENV}
+
