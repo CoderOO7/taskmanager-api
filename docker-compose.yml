@@ -11,7 +11,7 @@ services:
     env_file: .env
     networks:
       - app-network
-    command: ./wait-for-it.sh -t 0 postgres:5432 -- npm run start:${NODE_ENV}
+    command: ./wait-for-it.sh -t 0 postgres:${POSTGRES_PORT} -- npm run start:${NODE_ENV}
 
   postgres:
     container_name: postgres
