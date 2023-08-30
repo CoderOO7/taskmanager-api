@@ -7,8 +7,9 @@ services:
     build:
       context: .
     ports:
-      - '3000:3000'
+      - '${API_PORT}:${API_PORT}'
     env_file: .env
+    network_mode: host
     depends_on: 
       - postgres
 
@@ -26,3 +27,7 @@ services:
 volumes:
   postgresql_data:
     driver: local
+
+networks:
+  app-network:
+    driver: bridge
